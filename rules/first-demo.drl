@@ -1,0 +1,12 @@
+
+dialect  "java"
+
+import com.loda.pojo.Event
+
+rule "first-demo"
+    when
+        $e: Event(type == 'view' && count >= 2)
+    then
+        System.out.println("--++");
+        $e.setHit(true);
+end
