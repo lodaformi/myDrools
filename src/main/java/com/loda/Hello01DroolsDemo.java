@@ -2,6 +2,7 @@ package com.loda;
 
 import com.loda.pojo.Event;
 import org.apache.commons.io.FileUtils;
+import org.kie.api.io.ResourceType;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.utils.KieHelper;
 
@@ -24,14 +25,15 @@ public class Hello01DroolsDemo {
         String ruleString = FileUtils.readFileToString(new File("rules/first-demo.drl"), StandardCharsets.UTF_8);
 
         //添加规则
-        kieHelper.addContent(ruleString, "rule");
+        kieHelper.addContent(ruleString, ResourceType.DRL);
 
         //创建规则匹配的会话（将用户传入的数据和之前添加的规则进行匹配）
         KieSession kieSession = kieHelper.build().newKieSession();
 
         //创建数据
-        Event event = new Event("view", 2, false);
+        Event event = new Event("view", 3, false);
         //传入用户的数据
+//        kieSession.insert("hello");
         kieSession.insert(event);
 
         //将数据应用到所有的规则

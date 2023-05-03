@@ -1,0 +1,19 @@
+
+dialect  "java"
+
+import com.loda.pojo.Event
+import com.loda.pojo.DroolsRulesParam
+import com.loda.pojo.QueryParams
+import com.loda.service.QueryService
+
+rule "first-demo"
+    when
+        $dr: DroolsRulesParam()
+        $service: QueryService() from $dr.getQueryService()
+        $param: QueryParams() from $dr.getQueryParams()
+        $event: Event(type == "view" && count == 2) from $dr.getEvent()
+    then
+        System.out.println($service);
+        System.out.println($param);
+        System.out.println($event);
+end

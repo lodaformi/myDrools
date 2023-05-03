@@ -1,0 +1,19 @@
+
+dialect  "java"
+
+import com.loda.pojo.Event
+import com.loda.pojo.DroolsRulesParam
+import com.loda.pojo.QueryParams
+import com.loda.service.QueryService
+
+rule "first-demo"
+    when
+        $dr: DroolsRulesParam($dr != null)
+        $event: Event(type == "view" && count >= 2) from $dr.getEvent()
+    then
+        QueryService qs = $dr.getQueryService();
+        QueryParams params = $dr.getQueryParams();
+        boolean flag = qs.queryEventCountRangeTimes(params.getSql(), params.getUid(), params.getCid(),
+        $event.getType(), params.getStart_time(), params.getEnd_time(), params.getCounts());
+        $dr.setIsHit(flag);
+end

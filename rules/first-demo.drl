@@ -5,8 +5,10 @@ import com.loda.pojo.Event
 
 rule "first-demo"
     when
+//        $message: String(this == 'hello');
         $e: Event(type == 'view' && count >= 2)
     then
-        System.out.println("--++");
+//        System.out.println("--++");
+//        System.out.println("mess " + $message);
         $e.setHit(true);
 end
